@@ -1,4 +1,4 @@
-import { useGetCategories } from '@/hooks/category.hook';
+import { useGetCategories } from '@/hooks/category.hooks';
 import { useGetSuppliers } from '@/hooks/supplier.hooks';
 import { INITIAL_VALUES } from '../utils/product.utils';
 import { useAddProduct } from '@/hooks/product.hooks';

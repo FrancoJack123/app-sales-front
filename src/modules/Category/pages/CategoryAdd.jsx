@@ -1,4 +1,4 @@
-import { useAddCategory } from '@/hooks/category.hook';
+import { useAddCategory } from '@/hooks/category.hooks';
 import { useNavigate } from 'react-router-dom';
 import CategoryForm from '../components/CategoryForm';
 import { INITIAL_VALUES } from '../utils/category.utils';

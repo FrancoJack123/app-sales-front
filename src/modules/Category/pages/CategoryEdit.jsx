@@ -1,5 +1,5 @@
 import Loading from '@/components/common/Loading';
-import { useEditCategory, useGetCategoryById } from '@/hooks/category.hook';
+import { useEditCategory, useGetCategoryById } from '@/hooks/category.hooks';
 import { CATEGORY_PAGE } from '@/utils/contants/paths.contants';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';

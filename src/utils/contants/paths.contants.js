@@ -19,3 +19,5 @@ export const ORDER_ADD_PAGE = '/orders/add';
 export const ORDER_EDIT_PAGE = '/orders/edit';
 
 export const INVOICE_PAGE = '/invoices';
+
+export const SIGN_IN_PAGE = '/sign-in';

@@ -1,4 +1,4 @@
-import { useGetCategories } from '@/hooks/category.hook';
+import { useGetCategories } from '@/hooks/category.hooks';
 import { useEditProduct, useGetProductById } from '@/hooks/product.hooks';
 import { useGetSuppliers } from '@/hooks/supplier.hooks';
 import { useNavigate, useParams } from 'react-router-dom';

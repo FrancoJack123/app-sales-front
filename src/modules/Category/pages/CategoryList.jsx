@@ -1,5 +1,5 @@
 import Loading from '@/components/common/Loading';
-import { useDeleteCategory, useGetCategoriesWithPagination } from '@/hooks/category.hook';
+import { useDeleteCategory, useGetCategoriesWithPagination } from '@/hooks/category.hooks';
 import { SWEET_ALERT_DELETE_OPTIONS } from '@/utils/contants/alerts.constants';
 import { CATEGORY_PAGE } from '@/utils/contants/paths.contants';
 import queryString from 'query-string';

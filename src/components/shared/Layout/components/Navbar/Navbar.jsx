@@ -1,10 +1,25 @@
 import Button from '@/components/common/Button';
 import FlexContainer from '@/components/common/FlexContainer';
-import { CATEGORY_PAGE, CUSTOMER_PAGE, PRODUCT_PAGE, SUPPLIER_PAGE } from '@/utils/contants/paths.contants';
+import { logout } from '@/utils/actions/logout.actions';
+import { SWEET_ALERT_LOGOUT } from '@/utils/contants/alerts.constants';
+import {
+  CATEGORY_PAGE,
+  CUSTOMER_PAGE,
+  PRODUCT_PAGE,
+  SUPPLIER_PAGE,
+} from '@/utils/contants/paths.contants';
 import { Container, Nav, Navbar as NavbarBootstrap } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const Navbar = () => {
+  const handleLogout = async () => {
+    const result = await Swal.fire(SWEET_ALERT_LOGOUT);
+    if (result.isConfirmed) {
+      logout();
+    }
+  };
+
   return (
     <NavbarBootstrap collapseOnSelect expand="lg" className="bg-body-tertiary">
       <Container>
@@ -33,16 +48,7 @@ const Navbar = () => {
           </Nav>
           <Nav>
             <FlexContainer gap={2}>
-              <Button>
-                <i className="fa-solid fa-cart-shopping"></i>
-              </Button>
-              <Button>
-                <i className="fa-solid fa-user-plus"></i>
-              </Button>
-              <Button>
-                <i className="fa-solid fa-id-badge"></i>
-              </Button>
-              <Button>
+              <Button onClick={handleLogout}>
                 <i className="fa-solid fa-right-from-bracket"></i>
               </Button>
             </FlexContainer>
