@@ -1,0 +1,17 @@
+.custom-pagination .page-item .page-link {
+  border-radius: 5px !important;
+  border: 1px solid #ced4da;
+  color: rgba(33, 37, 41, 0.75) !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.custom-pagination .page-item.active .page-link {
+  background-color: #e9ecef !important;
+  border-color: #ced4da !important;
+  color: black !important;
+}
+
+.custom-pagination .page-item .page-link:hover {
+  background-color: #f8f9fa;
+  color: rgba(33, 37, 41, 0.75) !important;
+}
