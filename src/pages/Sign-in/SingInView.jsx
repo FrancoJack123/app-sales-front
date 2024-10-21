@@ -1,6 +1,8 @@
 import { Formik, Field, ErrorMessage } from 'formik';
 import { Form, Button, Container, Row, Col, FloatingLabel } from 'react-bootstrap';
 import { SING_IN_VALIDATION_SCHEMA } from './utils/singIn.utils';
+import Link from '@/components/common/Link';
+import { SIGN_UP_PAGE } from '@/utils/contants/paths.contants';
 
 const SignInView = ({ onSubmit, initialValues }) => {
   return (
@@ -23,7 +25,7 @@ const SignInView = ({ onSubmit, initialValues }) => {
                         type="email"
                         name="email"
                         placeholder="name@example.com"
-                        isInvalid={touched.email && !!errors.email} // Añadir estilo de error
+                        isInvalid={touched.email && !!errors.email}
                       />
                       <Form.Control.Feedback type="invalid">
                         <ErrorMessage name="email" />
@@ -38,7 +40,7 @@ const SignInView = ({ onSubmit, initialValues }) => {
                         type="password"
                         name="password"
                         placeholder="Password"
-                        isInvalid={touched.password && !!errors.password} // Añadir estilo de error
+                        isInvalid={touched.password && !!errors.password}
                       />
                       <Form.Control.Feedback type="invalid">
                         <ErrorMessage name="password" />
@@ -63,7 +65,10 @@ const SignInView = ({ onSubmit, initialValues }) => {
 
             <div className="mt-4 text-center">
               <span>
-                ¿Aún no tienes una cuenta? <a className="text-primary">Regístrate</a>
+                ¿Aún no tienes una cuenta?{' '}
+                <Link className="text-primary" to={SIGN_UP_PAGE}>
+                  Regístrate
+                </Link>
               </span>
             </div>
           </Col>

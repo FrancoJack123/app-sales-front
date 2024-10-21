@@ -7,6 +7,7 @@ import {
   CUSTOMER_PAGE,
   PRODUCT_PAGE,
   SIGN_IN_PAGE,
+  SIGN_UP_PAGE,
   SUPPLIER_PAGE,
 } from '@/utils/contants/paths.contants';
 import { lazy, Suspense } from 'react';
@@ -18,6 +19,7 @@ const CategoryModule = lazy(() => import('@/modules/Category/CategoryModule'));
 const SupplierModule = lazy(() => import('@/modules/Supplier/SupplierModule'));
 
 const SingInController = lazy(() => import('@/pages/Sign-in/SingInController'));
+const SingUpController = lazy(() => import('@/pages/Sign-up/SingUpController'));
 
 const PageRoutes = () => {
   return (
@@ -31,6 +33,7 @@ const PageRoutes = () => {
             <Route path={`${PRODUCT_PAGE}/*`} element={<ProductModule />} />
           </Route>
           <Route path={SIGN_IN_PAGE} Component={withoutAuthRedirect(SingInController)} />
+          <Route path={SIGN_UP_PAGE} Component={withoutAuthRedirect(SingUpController)} />
           <Route path="*" element={<Navigate to={SIGN_IN_PAGE} />} />
         </Routes>
       </Suspense>

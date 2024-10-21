@@ -39,12 +39,6 @@ const Navbar = () => {
             <NavLink to={PRODUCT_PAGE} className="nav-item nav-link">
               Productos
             </NavLink>
-            <NavLink to={PRODUCT_PAGE} className="nav-item nav-link">
-              Ordenes
-            </NavLink>
-            <NavLink to={PRODUCT_PAGE} className="nav-item nav-link">
-              Facturas
-            </NavLink>
           </Nav>
           <Nav>
             <FlexContainer gap={2}>
