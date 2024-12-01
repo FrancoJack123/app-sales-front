@@ -4,9 +4,9 @@ import FieldInput from '@/components/common/FieldInput';
 import FieldTextArea from '@/components/common/FieldTextArea';
 import FieldSelect from '@/components/common/FieldSelect';
 import FieldMultiSelect from '@/components/common/FieldMultiSelect';
-import FlexContainer from '@/components/common/FlexContainer';
 import Button from '@/components/common/Button';
 import GoBackButton from '@/components/common/GoBackButton';
+import { Col, Row } from 'react-bootstrap';
 
 const ProductForm = ({ initialValues, categories, suppliers, onSubmit }) => {
   return (
@@ -33,12 +33,17 @@ const ProductForm = ({ initialValues, categories, suppliers, onSubmit }) => {
             options={categories}
             component={FieldMultiSelect}
           />
-          <FlexContainer gap={2}>
-            <Button type="submit" disabled={isSubmitting}>
-              Guardar
-            </Button>
-            <GoBackButton />
-          </FlexContainer>
+
+          <Row className="mt-4">
+            <Col className="offset-sm-2 col-sm-5 d-grid">
+              <Button type="submit" disabled={isSubmitting}>
+                Guardar
+              </Button>
+            </Col>
+            <Col className="col-sm-5 d-grid">
+              <GoBackButton />
+            </Col>
+          </Row>
         </Form>
       )}
     </Formik>

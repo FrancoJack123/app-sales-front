@@ -15,7 +15,6 @@ const SingInController = () => {
     if (response?.status) {
       setAccessToken(response?.jwt);
       navigate(CUSTOMER_PAGE);
-      console.log(response);
     }
   };
 

@@ -1,10 +1,10 @@
 import Button from '@/components/common/Button';
 import FieldInput from '@/components/common/FieldInput';
 import FieldTextArea from '@/components/common/FieldTextArea';
-import FlexContainer from '@/components/common/FlexContainer';
 import GoBackButton from '@/components/common/GoBackButton';
 import { Field, Form, Formik } from 'formik';
 import { SUPPLIER_VALIDATION_SCHEMA } from '../utils/supplier.utils';
+import { Col, Row } from 'react-bootstrap';
 
 const SupplierForm = ({ onSubmit, initialValues }) => {
   return (
@@ -25,12 +25,17 @@ const SupplierForm = ({ onSubmit, initialValues }) => {
             placeholder="Contacto"
             component={FieldTextArea}
           />
-          <FlexContainer gap={2}>
-            <Button type="submit" disabled={isSubmitting}>
-              Guardar
-            </Button>
-            <GoBackButton />
-          </FlexContainer>
+
+          <Row className="mt-4">
+            <Col className="offset-sm-2 col-sm-5 d-grid">
+              <Button type="submit" disabled={isSubmitting}>
+                Guardar
+              </Button>
+            </Col>
+            <Col className="col-sm-5 d-grid">
+              <GoBackButton />
+            </Col>
+          </Row>
         </Form>
       )}
     </Formik>

@@ -5,15 +5,12 @@ const initialState = {
   userInfo: null,
 };
 
-export const userSlice = createSlice({
+export const authSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    singIn: (state, action) => {
-      state.userInfo = action.payload.userInfo;
-    },
-    resetUserState: () => {
-      return initialState;
+    addUserInfo: (state, action) => {
+      state.userInfo = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -23,6 +20,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { singIn, resetUserState } = userSlice.actions;
+export const { addUserInfo } = authSlice.actions;
 export const selectUserState = (state) => state.userState;
-export default userSlice.reducer;
+export default authSlice.reducer;
