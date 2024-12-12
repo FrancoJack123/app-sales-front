@@ -1,9 +1,9 @@
 import ProductApi from '@/api/product.api';
 import { useReactMutate, useReactQuery } from '@/api/react-query/reactQuerySetup';
 
-export const useGetProductsWithPagination = (page = 0, size = 6) => {
-  return useReactQuery(['getProductsWithPagination', page, size], () =>
-    ProductApi.getProductsWithPagination(page, size),
+export const useGetProductsWithPagination = (filters) => {
+  return useReactQuery(['getProductsWithPagination', filters], () =>
+    ProductApi.getProductsWithPagination(filters),
   );
 };
 

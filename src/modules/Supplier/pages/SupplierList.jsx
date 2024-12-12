@@ -1,21 +1,21 @@
 import Loading from '@/components/common/Loading';
 import { useDeleteSupplier, useGetSuppliersWithPagination } from '@/hooks/supplier.hooks';
 import { SWEET_ALERT_DELETE_OPTIONS } from '@/utils/contants/alerts.constants';
-import { SUPPLIER_PAGE } from '@/utils/contants/paths.contants';
-import queryString from 'query-string';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import SupplierTable from '../components/SupplierTable';
+import { useFilters } from '@/hooks/filter.hook';
 
 const SupplierList = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const { page = 0, size = 6 } = queryString.parse(location.search);
+  const { filters, updateFilters } = useFilters({
+    page: 0,
+    size: 6,
+    name: '',
+    ruc: '',
+  });
 
   const deleteSupplier = useDeleteSupplier();
-  const { data, refetch, isLoading } = useGetSuppliersWithPagination(page, size);
+  const { data, refetch, isLoading } = useGetSuppliersWithPagination(filters);
 
   const handleDeleteSupplier = async (id) => {
     const result = await Swal.fire(SWEET_ALERT_DELETE_OPTIONS);
@@ -33,12 +33,19 @@ const SupplierList = () => {
   };
 
   const handlePageChange = (newPage) => {
-    navigate(`${SUPPLIER_PAGE}?page=${newPage}&size=${size}`);
+    updateFilters({ page: newPage });
   };
 
   const handleSizeChange = (e) => {
-    const newSize = e.target.value;
-    navigate(`${SUPPLIER_PAGE}?page=0&size=${newSize}`);
+    updateFilters({ size: e.target.value, page: 0 });
+  };
+
+  const onSubmitFilters = (values, actions) => {
+    updateFilters({
+      name: values.name,
+      ruc: values.ruc,
+    });
+    actions.setSubmitting(false);
   };
 
   return isLoading ? (
@@ -46,6 +53,8 @@ const SupplierList = () => {
   ) : (
     <SupplierTable
       data={data}
+      filters={filters}
+      onSubmitFilters={onSubmitFilters}
       handleDelete={handleDeleteSupplier}
       handlePageChange={handlePageChange}
       handleSizeChange={handleSizeChange}

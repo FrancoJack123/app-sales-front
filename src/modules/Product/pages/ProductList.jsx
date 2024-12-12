@@ -1,21 +1,24 @@
 import { toast } from 'react-toastify';
-import { useLocation, useNavigate } from 'react-router-dom';
-import queryString from 'query-string';
-import { PRODUCT_PAGE } from '@/utils/contants/paths.contants';
 import Swal from 'sweetalert2';
 import { SWEET_ALERT_DELETE_OPTIONS } from '@/utils/contants/alerts.constants';
 import ProductTable from '../components/ProductTable';
 import Loading from '@/components/common/Loading';
 import { useDeleteProduct, useGetProductsWithPagination } from '@/hooks/product.hooks';
+import { useGetSuppliers } from '@/hooks/supplier.hooks';
+import { useFilters } from '@/hooks/filter.hook';
 
 const ProductList = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const { page = 0, size = 6 } = queryString.parse(location.search);
+  const { filters, updateFilters } = useFilters({
+    page: 0,
+    size: 6,
+    supplierId: '',
+    minPrice: '',
+    maxPrice: '',
+  });
 
   const deleteProduct = useDeleteProduct();
-  const { data, refetch, isLoading } = useGetProductsWithPagination(page, size);
+  const { data, refetch, isLoading } = useGetProductsWithPagination(filters);
+  const { data: suppliers, isLoading: isLoadingSuppliers } = useGetSuppliers();
 
   const handleDeleteProduct = async (id) => {
     const result = await Swal.fire(SWEET_ALERT_DELETE_OPTIONS);
@@ -33,19 +36,30 @@ const ProductList = () => {
   };
 
   const handlePageChange = (newPage) => {
-    navigate(`${PRODUCT_PAGE}?page=${newPage}&size=${size}`);
+    updateFilters({ page: newPage });
   };
 
   const handleSizeChange = (e) => {
-    const newSize = e.target.value;
-    navigate(`${PRODUCT_PAGE}?page=0&size=${newSize}`);
+    updateFilters({ size: e.target.value, page: 0 });
   };
 
-  return isLoading ? (
+  const onSubmitFilters = (values, actions) => {
+    updateFilters({
+      supplierId: values.supplierId,
+      minPrice: values.minPrice,
+      maxPrice: values.maxPrice,
+    });
+    actions.setSubmitting(false);
+  };
+
+  return isLoading || isLoadingSuppliers ? (
     <Loading />
   ) : (
     <ProductTable
       data={data}
+      suppliers={suppliers}
+      filters={filters}
+      onSubmitFilters={onSubmitFilters}
       handleDelete={handleDeleteProduct}
       handlePageChange={handlePageChange}
       handleSizeChange={handleSizeChange}

@@ -1,9 +1,9 @@
 import CustomerApi from '@/api/customer.api';
 import { useReactMutate, useReactQuery } from '@/api/react-query/reactQuerySetup';
 
-export const useGetCustomersWithPagination = (page = 0, size = 6) => {
-  return useReactQuery(['getCustomersWithPagination', page, size], () =>
-    CustomerApi.getCustomersWithPagination(page, size),
+export const useGetCustomersWithPagination = (filters) => {
+  return useReactQuery(['getCustomersWithPagination', filters], () =>
+    CustomerApi.getCustomersWithPagination(filters),
   );
 };
 

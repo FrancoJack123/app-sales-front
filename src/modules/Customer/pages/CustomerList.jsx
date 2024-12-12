@@ -1,21 +1,22 @@
 import { toast } from 'react-toastify';
-import { useLocation, useNavigate } from 'react-router-dom';
-import queryString from 'query-string';
-import { CUSTOMER_PAGE } from '@/utils/contants/paths.contants';
 import { useDeleteCustomer, useGetCustomersWithPagination } from '@/hooks/customer.hooks';
 import Swal from 'sweetalert2';
 import { SWEET_ALERT_DELETE_OPTIONS } from '@/utils/contants/alerts.constants';
 import Loading from '@/components/common/Loading';
 import CustomerTable from '../components/CustomerTable';
+import { useFilters } from '@/hooks/filter.hook';
 
 const CustomerList = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const { page = 0, size = 6 } = queryString.parse(location.search);
+  const { filters, updateFilters } = useFilters({
+    page: 0,
+    size: 6,
+    name: '',
+    email: '',
+    phone: '',
+  });
 
   const deleteCustomer = useDeleteCustomer();
-  const { data, refetch, isLoading } = useGetCustomersWithPagination(page, size);
+  const { data, refetch, isLoading } = useGetCustomersWithPagination(filters);
 
   const handleDeleteCustomer = async (id) => {
     const result = await Swal.fire(SWEET_ALERT_DELETE_OPTIONS);
@@ -33,12 +34,20 @@ const CustomerList = () => {
   };
 
   const handlePageChange = (newPage) => {
-    navigate(`${CUSTOMER_PAGE}?page=${newPage}&size=${size}`);
+    updateFilters({ page: newPage });
   };
 
   const handleSizeChange = (e) => {
-    const newSize = e.target.value;
-    navigate(`${CUSTOMER_PAGE}?page=0&size=${newSize}`);
+    updateFilters({ size: e.target.value, page: 0 });
+  };
+
+  const onSubmitFilters = (values, actions) => {
+    updateFilters({
+      name: values.name,
+      email: values.email,
+      phone: values.phone,
+    });
+    actions.setSubmitting(false);
   };
 
   return isLoading ? (
@@ -46,6 +55,8 @@ const CustomerList = () => {
   ) : (
     <CustomerTable
       data={data}
+      filters={filters}
+      onSubmitFilters={onSubmitFilters}
       handleDelete={handleDeleteCustomer}
       handlePageChange={handlePageChange}
       handleSizeChange={handleSizeChange}

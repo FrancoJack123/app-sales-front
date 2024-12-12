@@ -2,8 +2,8 @@ import { API_CUSTOMER } from '@/utils/contants/api.paths.contants';
 import axiosHelpers from './axios/api';
 
 const CustomerApi = {
-  getCustomersWithPagination: (page = 0, size = 6) =>
-    axiosHelpers.getRequest(`${API_CUSTOMER}/paginated?page=${page}&size=${size}`),
+  getCustomersWithPagination: (filters) =>
+    axiosHelpers.getRequest(`${API_CUSTOMER}/paginated`, filters),
   getCustomers: () => axiosHelpers.getRequest(API_CUSTOMER),
   getCustomerById: (id) => axiosHelpers.getRequest(`${API_CUSTOMER}/${id}`),
   existsCustomerByEmail: (email) =>

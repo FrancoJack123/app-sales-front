@@ -1,9 +1,9 @@
 import SupplierApi from '@/api/supplier.api';
 import { useReactMutate, useReactQuery } from '@/api/react-query/reactQuerySetup';
 
-export const useGetSuppliersWithPagination = (page = 0, size = 6) => {
-  return useReactQuery(['getSuppliersWithPagination', page, size], () =>
-    SupplierApi.getSuppliersWithPagination(page, size),
+export const useGetSuppliersWithPagination = (filters) => {
+  return useReactQuery(['getSuppliersWithPagination', filters], () =>
+    SupplierApi.getSuppliersWithPagination(filters),
   );
 };
 

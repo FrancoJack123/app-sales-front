@@ -1,13 +1,22 @@
 import Button from '@/components/common/Button';
+import FieldInput from '@/components/common/FieldInput';
 import FlexContainer from '@/components/common/FlexContainer';
 import LinkButton from '@/components/common/LinkButton';
 import Pagination from '@/components/common/Pagination';
 import PaginationInfo from '@/components/common/PaginationInfo';
 import PaginationSizeSelector from '@/components/common/PaginationSizeSelector';
 import { SUPPLIER_ADD_PAGE, SUPPLIER_EDIT_PAGE } from '@/utils/contants/paths.contants';
-import { Badge, Table } from 'react-bootstrap';
+import { Field, Formik } from 'formik';
+import { Badge, Card, Table } from 'react-bootstrap';
 
-const SupplierTable = ({ data, handleDelete, handlePageChange, handleSizeChange }) => {
+const SupplierTable = ({
+  data,
+  filters,
+  onSubmitFilters,
+  handleDelete,
+  handlePageChange,
+  handleSizeChange,
+}) => {
   const suppliers = data?.content ?? [];
 
   return (
@@ -18,6 +27,36 @@ const SupplierTable = ({ data, handleDelete, handlePageChange, handleSizeChange 
         </LinkButton>
         <PaginationSizeSelector size={data?.size} handleSizeChange={handleSizeChange} />
       </FlexContainer>
+      <Card className="mb-4">
+        <Card.Header>Filtros</Card.Header>
+        <Card.Body>
+          <Formik gap={3} initialValues={filters} onSubmit={onSubmitFilters}>
+            {({ isSubmitting, handleSubmit }) => (
+              <FlexContainer gap={3} alignItemsEnd>
+                <Field
+                  name="ruc"
+                  label="Ruc del Proveedor"
+                  placeholder="Ruc del Proveedor"
+                  component={FieldInput}
+                  isInline={false}
+                />
+                <Field
+                  name="name"
+                  label="Nombre del Proveedor"
+                  placeholder="Nombre del Proveedor"
+                  component={FieldInput}
+                  isInline={false}
+                />
+                <div className="mb-3">
+                  <Button type="submit" onClick={handleSubmit} disabled={isSubmitting}>
+                    Filtrar
+                  </Button>
+                </div>
+              </FlexContainer>
+            )}
+          </Formik>
+        </Card.Body>
+      </Card>
       <Table striped bordered hover responsive>
         <thead>
           <tr>
@@ -57,7 +96,7 @@ const SupplierTable = ({ data, handleDelete, handlePageChange, handleSizeChange 
           ))}
         </tbody>
       </Table>
-      <FlexContainer justifyBetween alignItemsCenter>
+      <FlexContainer column justifyBetween alignItemsCenter className="flex-md-row">
         <PaginationInfo page={data?.page} size={data?.size} totalElements={data?.totalElements} />
         <Pagination
           page={data?.page}

@@ -55,7 +55,7 @@ const CategoryTable = ({ data, handleDelete, handlePageChange, handleSizeChange 
           ))}
         </tbody>
       </Table>
-      <FlexContainer justifyBetween alignItemsCenter>
+      <FlexContainer column justifyBetween alignItemsCenter className="flex-md-row">
         <PaginationInfo page={data?.page} size={data?.size} totalElements={data?.totalElements} />
         <Pagination
           page={data?.page}
