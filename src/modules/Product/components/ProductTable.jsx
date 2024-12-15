@@ -6,6 +6,7 @@ import LinkButton from '@/components/common/LinkButton';
 import Pagination from '@/components/common/Pagination';
 import PaginationInfo from '@/components/common/PaginationInfo';
 import PaginationSizeSelector from '@/components/common/PaginationSizeSelector';
+import { useExportExcel, useExportPDF } from '@/hooks/product.hooks';
 import { PRODUCT_ADD_PAGE, PRODUCT_EDIT_PAGE } from '@/utils/contants/paths.contants';
 import { Field, Formik } from 'formik';
 import { Badge, Card, Table } from 'react-bootstrap';
@@ -21,12 +22,23 @@ const ProductTable = ({
 }) => {
   const products = data?.content ?? [];
 
+  const exportPDF = useExportPDF();
+  const exportExcel = useExportExcel();
+
   return (
     <div>
       <FlexContainer justifyBetween>
-        <LinkButton to={PRODUCT_ADD_PAGE} className="mb-4">
-          <i className="fa-solid fa-user-plus"></i> Agregar
-        </LinkButton>
+        <FlexContainer gap={2}>
+          <LinkButton to={PRODUCT_ADD_PAGE} className="mb-4">
+            <i className="fa-solid fa-user-plus"></i> Agregar
+          </LinkButton>
+          <Button onClick={exportPDF} className="mb-4">
+            <i className="fa-solid fa-file-pdf"></i>
+          </Button>
+          <Button onClick={exportExcel} className="mb-4">
+            <i className="fa-solid fa-file-excel"></i>
+          </Button>
+        </FlexContainer>
         <PaginationSizeSelector size={data?.size} handleSizeChange={handleSizeChange} />
       </FlexContainer>
       <Card className="mb-4">

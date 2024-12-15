@@ -5,6 +5,7 @@ import LinkButton from '@/components/common/LinkButton';
 import Pagination from '@/components/common/Pagination';
 import PaginationInfo from '@/components/common/PaginationInfo';
 import PaginationSizeSelector from '@/components/common/PaginationSizeSelector';
+import { useExportPDF, useExportExcel } from '@/hooks/supplier.hooks';
 import { SUPPLIER_ADD_PAGE, SUPPLIER_EDIT_PAGE } from '@/utils/contants/paths.contants';
 import { Field, Formik } from 'formik';
 import { Badge, Card, Table } from 'react-bootstrap';
@@ -19,12 +20,23 @@ const SupplierTable = ({
 }) => {
   const suppliers = data?.content ?? [];
 
+  const exportPDF = useExportPDF();
+  const exportExcel = useExportExcel();
+
   return (
     <div>
       <FlexContainer justifyBetween>
-        <LinkButton to={SUPPLIER_ADD_PAGE} className="mb-4">
-          <i className="fa-solid fa-user-plus"></i> Agregar
-        </LinkButton>
+        <FlexContainer gap={2}>
+          <LinkButton to={SUPPLIER_ADD_PAGE} className="mb-4">
+            <i className="fa-solid fa-user-plus"></i> Agregar
+          </LinkButton>
+          <Button onClick={exportPDF} className="mb-4">
+            <i className="fa-solid fa-file-pdf"></i>
+          </Button>
+          <Button onClick={exportExcel} className="mb-4">
+            <i className="fa-solid fa-file-excel"></i>
+          </Button>
+        </FlexContainer>
         <PaginationSizeSelector size={data?.size} handleSizeChange={handleSizeChange} />
       </FlexContainer>
       <Card className="mb-4">

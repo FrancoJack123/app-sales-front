@@ -1,5 +1,6 @@
 import ProductApi from '@/api/product.api';
 import { useReactMutate, useReactQuery } from '@/api/react-query/reactQuerySetup';
+import { saveAs } from 'file-saver';
 
 export const useGetProductsWithPagination = (filters) => {
   return useReactQuery(['getProductsWithPagination', filters], () =>
@@ -25,4 +26,28 @@ export const useEditProduct = () => {
 
 export const useDeleteProduct = () => {
   return useReactMutate(['deleteProduct'], (id) => ProductApi.deleteProduct(id));
+};
+
+export const useExportPDF = () => {
+  return async () => {
+    try {
+      const pdfBlob = await ProductApi.exportPDF();
+      console.log(pdfBlob);
+
+      saveAs(pdfBlob, 'products.pdf');
+    } catch (error) {
+      console.error('Error al descargar el PDF:', error.message);
+    }
+  };
+};
+
+export const useExportExcel = () => {
+  return async () => {
+    try {
+      const excelBlob = await ProductApi.exportExcel();
+      saveAs(excelBlob, 'products.xls');
+    } catch (error) {
+      console.error('Error al descargar el Excel:', error.message);
+    }
+  };
 };

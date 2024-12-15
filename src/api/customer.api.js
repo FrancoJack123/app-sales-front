@@ -3,7 +3,7 @@ import axiosHelpers from './axios/api';
 
 const CustomerApi = {
   getCustomersWithPagination: (filters) =>
-    axiosHelpers.getRequest(`${API_CUSTOMER}/paginated`, filters),
+    axiosHelpers.getRequest(`${API_CUSTOMER}/paginated`, { params: filters }),
   getCustomers: () => axiosHelpers.getRequest(API_CUSTOMER),
   getCustomerById: (id) => axiosHelpers.getRequest(`${API_CUSTOMER}/${id}`),
   existsCustomerByEmail: (email) =>

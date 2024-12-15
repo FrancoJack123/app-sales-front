@@ -3,8 +3,8 @@ import { axiosRequestConfiguration } from './config';
 
 const axiosInstance = initialization(axiosRequestConfiguration);
 
-const getRequest = (url, queryParams) => {
-  return axiosInstance.get(url, { params: queryParams });
+const getRequest = (url, config) => {
+  return axiosInstance.get(url, { ...config });
 };
 
 const postRequest = async (url, body) => {
